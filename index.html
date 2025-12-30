@@ -8,27 +8,17 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
         
-        body { 
-            background-color: #000; 
-            color: white; 
-            margin: 0; 
-            overflow: hidden;
-        }
-
-        /* Video-accurate Starry Background */
+        body { background-color: #000; color: white; margin: 0; overflow: hidden; }
         .starry-bg {
             background: radial-gradient(circle at top, #1a0b2e 0%, #000 100%);
             height: 100vh;
             width: 100vw;
         }
-
         .font-love { font-family: 'Dancing Script', cursive; }
         .hidden { display: none; }
-        
-        /* Fade-in animation for lyrics and GIFs */
-        .fade-in { animation: fadeIn 1.2s ease-out forwards; }
+        .fade-in { animation: fadeIn 1.5s ease-out forwards; }
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(15px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
@@ -58,12 +48,14 @@
             </button>
         </div>
 
-        <div id="screen3" class="hidden fade-in space-y-4">
-            <h2 class="text-2xl font-love text-white italic">Tu haseen tera naam haseen ae</h2>
-            <h2 class="text-2xl font-love text-white italic">Tere ishq da jaam haseen ae</h2>
-            <h2 class="text-2xl font-love text-white italic">Eh be-matlabi zindagi</h2>
-            <h2 class="text-2xl font-love text-white italic">Jado di tere naam haseen ae</h2>
-            <button onclick="next(3)" class="mt-10 bg-white/10 px-6 py-2 rounded-full text-sm font-bold border border-white/20">
+        <div id="screen3" class="hidden fade-in space-y-6">
+            <div class="space-y-2">
+                <h2 class="text-2xl font-love text-white italic">Tu haseen tera naam haseen ae</h2>
+                <h2 class="text-2xl font-love text-white italic">Tere ishq da jaam haseen ae</h2>
+                <h2 class="text-2xl font-love text-white italic">Eh be-matlabi zindagi</h2>
+                <h2 class="text-2xl font-love text-white italic">Jado di tere naam haseen ae</h2>
+            </div>
+            <button onclick="next(3)" class="mt-10 bg-white/10 px-8 py-2 rounded-full text-sm font-bold border border-white/20">
                 Continue ✨
             </button>
         </div>
@@ -78,10 +70,15 @@
 
     <script>
         function next(num) {
-            // Music starts on the very first button click
-            if(num === 1) { document.getElementById('bgMusic').play(); }
+            // IF moving from Screen 2 to Screen 3, START THE MUSIC
+            if(num === 2) { 
+                const music = document.getElementById('bgMusic');
+                music.play().catch(error => {
+                    console.log("Music play blocked by browser. It will start on the next click.");
+                });
+            }
 
-            // Logic to swap screens
+            // Standard screen transition logic
             document.getElementById('screen' + num).classList.add('hidden');
             document.getElementById('screen' + (num + 1)).classList.remove('hidden');
         }
